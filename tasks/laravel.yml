@@ -1,0 +1,10 @@
+- name: remove directory
+  shell: rm -rf /vagrant/laravel
+- name: install laravel
+  shell: chdir=/vagrant hhvm -v ResourceLimit.SocketDefaultTimeout=30 -v Http.SlowQueryThreshold=30000 /usr/local/bin/composer create-project laravel/laravel laravel --prefer-dist
+- name: chmod app/storage
+  shell: chmod 777 -R /vagrant/laravel/app/storage/
+- name: copy default.conf
+  copy: src=../files/default.conf dest=/etc/nginx/conf.d/default.conf backup=yes
+- name: restart nginx
+  service: name=nginx state=restarted

@@ -1,0 +1,15 @@
+
+- name: add boost apt repository
+  apt_repository: repo="ppa:mapnik/boost"
+- name: add hhvm apt key
+  apt_key: url=http://dl.hhvm.com/conf/hhvm.gpg.key
+- name: add hhvm repository
+  apt_repository: repo="deb http://dl.hhvm.com/ubuntu precise main"
+- name: install HHVM
+  apt: pkg=hhvm update_cache=yes
+- name: install fast-cgi
+  shell: /usr/share/hhvm/install_fastcgi.sh
+- name: restart service hhvm
+  service: name=hhvm state=restarted
+- name: be sure hhvm is running and enabled.
+  service: name=hhvm state=running enabled=yes

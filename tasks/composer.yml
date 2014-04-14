@@ -1,0 +1,6 @@
+- name: get composer
+  shell: wget -nc https://getcomposer.org/composer.phar
+- name: install composer
+  shell: mv composer.phar /usr/local/bin/composer
+- name: chmod composer
+  shell: chmod 777 /usr/local/bin/composer

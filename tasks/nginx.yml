@@ -1,0 +1,6 @@
+- name: add nginx stable repository from PPA and install its signing key.
+  apt_repository: repo="deb http://nginx.org/packages/ubuntu/ precise nginx"
+- name: install nginx
+  apt:  pkg=nginx force=yes
+- name: be sure nginx is running and enabled.
+  service: name=nginx state=running enabled=yes

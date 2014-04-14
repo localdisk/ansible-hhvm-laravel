@@ -1,0 +1,11 @@
+- name: install mysql.
+  apt:  pkg={{ item }} state=installed
+  with_items:
+    - mysql-server
+    - python-mysqldb
+- name: be sure mysql is running and enabled.
+  service: name=mysql state=running enabled=yes
+- name: create database.
+  mysql_db: db={{ db_name }} state=present encoding=utf8
+- name: Create database user
+  mysql_user: name={{ db_user }} password={{ db_password }} priv={{ db_name }}.*:ALL state=present

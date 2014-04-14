@@ -1,0 +1,19 @@
+- name: update repository
+  apt: update_cache=yes cache_valid_time=86400
+- name: install essentials
+  action: apt pkg={{ item }} state=installed
+  with_items:
+    - unzip
+    - vim
+    - git-core
+    - curl
+    - wget
+    - build-essential
+    - python-software-properties
+- name: change UTC -> JST
+  shell: cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+- name: set the clock
+  copy: src=../files/ntp.conf dest=/etc/ntp.conf backup=yes
+- name: restart ntp
+  service: name=ntp state=restarted
+
